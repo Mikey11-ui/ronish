@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday, Neha Sarma</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="entry-page">
+  <div class="login-shell" id="loginShell">
+    <div class="login-card">
+      <p class="login-card__eyebrow">Private access</p>
+      <h2>Birthday Access</h2>
+      <form id="loginForm" class="login-form" novalidate>
+        <label><span>First Name</span><input type="text" id="firstNameInput" placeholder="Enter first name" autocomplete="given-name" required /></label>
+        <label><span>Last Name</span><input type="text" id="lastNameInput" placeholder="Enter last name" autocomplete="family-name" required /></label>
+        <label><span>Password</span><input type="password" id="passwordInput" value="neha19" required /></label>
+        <button type="submit" class="btn btn--primary login-button">Enter</button>
+        <p id="loginError" class="login-error" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+  <div class="entry-countdown" id="entryCountdown" aria-live="assertive" aria-atomic="true" hidden>
+    <p class="entry-countdown__label">Your birthday surprise begins in</p>
+    <strong id="entryCountdownNumber">3</strong>
+  </div>
+  <main class="page is-active home-screen">
+    <div class="hero__glow" aria-hidden="true"></div>
+    <div class="hero__content">
+      <p class="hero__eyebrow">for you</p>
+      <h1 class="hero__title">Happy Birthday, <span>Neha Sarma</span> <span aria-hidden="true">❤</span></h1>
+      <p class="hero__subtitle">To the most special girl who makes the world a little more beautiful just by being in it.</p>
+      <a class="btn btn--primary" data-next-page="1" href="message.html">Open Your Surprise <span aria-hidden="true">🎁</span></a>
+      <p class="page-note">Your private birthday story begins here.</p>
+    </div>
+  </main>
+  <script src="page.js"></script>
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const firstName = document.getElementById('firstNameInput').value.trim().toLowerCase();
+      const lastName = document.getElementById('lastNameInput').value.trim().toLowerCase();
+      const password = document.getElementById('passwordInput').value.trim();
+      const error = document.getElementById('loginError');
+
+      if (firstName !== 'neha' || lastName !== 'sarma' || password !== 'neha19') {
+        error.textContent = 'Wrong first name, last name, or password.';
+        return;
+      }
+      sessionStorage.setItem('birthdayUnlocked', 'true');
+      sessionStorage.setItem('birthdayMaxPage', '0');
+
+      const loginShell = document.getElementById('loginShell');
+      const entryCountdown = document.getElementById('entryCountdown');
+      const entryCountdownNumber = document.getElementById('entryCountdownNumber');
+      loginShell.classList.add('hidden');
+      entryCountdown.hidden = false;
+
+      let number = 3;
+      const countdownTimer = window.setInterval(() => {
+        number -= 1;
+        if (number === 0) {
+          window.clearInterval(countdownTimer);
+          entryCountdown.hidden = true;
+          return;
+        }
+        entryCountdownNumber.textContent = String(number);
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
